@@ -2,25 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/libs/internal_impl-22.1.1.jar"
+        jar="/home/hani/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/2.0.1/516c03b21d50a644d538de0f0369c620989cd8f0/jsr305-2.0.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
-        <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/internal_impl-22.1.1-c6565f4243458f6e7f60ee34724daa60b5abec4f.jar" />
+        sha1="516c03b21d50a644d538de0f0369c620989cd8f0">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/jsr305-2.0.1-39b4bef6b75d682b4c8487852fd923cdfaf39d0b.jar" />
     </item>
     <item
-        jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/pexkit-android-example/pexkit/unspecified/jars/libs/json-simple-1.1.1.jar"
+        jar="/home/hani/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.5/6b262da268f8ad9eff941b25503a9198f0a0ac93/slf4j-api-1.7.5.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="5d6f9b6a9ddca2a28c0216cc44efb2e20d9c23b5">
-        <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/json-simple-1.1.1-e41590edd1957279046053a94c8f127c6b90f51d.jar" />
-    </item>
-    <item
-        jar="/home/hani/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.1/support-annotations-22.1.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/support-annotations-22.1.1-7e88a8fa5c983a9cd75f939114d0750d0e998428.jar" />
+        sha1="6b262da268f8ad9eff941b25503a9198f0a0ac93">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.5-a67a5d6b43583ede74882cee7dd0398fe1de6e71.jar" />
     </item>
     <item
         jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/pexkit-android-example/pexkit/unspecified/jars/libs/libjingle_peerconnection.jar"
@@ -37,88 +30,18 @@
         <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/classes-58142e8f60aaff77243411dd6d76748ed93d22ed.jar" />
     </item>
     <item
-        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/Example/pexkit/unspecified/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="63044c1474d0c7c03c68cd50f72dce53fe6f04dd">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/classes-0d5a2f0f453884d35a3b6de8e93cda4c687e3b3e.jar" />
-    </item>
-    <item
-        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/classes-18464188d65df82d6441e72434c488cc9971f53f.jar" />
-    </item>
-    <item
-        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/libs/internal_impl-22.1.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/internal_impl-22.1.1-bb3f040002e5c7dbbe88992fc2a26f851e1fa085.jar" />
-    </item>
-    <item
-        jar="/home/hani/.gradle/caches/modules-2/files-2.1/com.spotify/dns/3.0.2/73271f129d61641179a13c0f1f6af4ac7cec446b/dns-3.0.2.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="73271f129d61641179a13c0f1f6af4ac7cec446b">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/dns-3.0.2-8dababb7d8ca7de9873156a79df8941366e484fc.jar" />
-    </item>
-    <item
-        jar="/home/hani/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.5/6b262da268f8ad9eff941b25503a9198f0a0ac93/slf4j-api-1.7.5.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="6b262da268f8ad9eff941b25503a9198f0a0ac93">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.5-a67a5d6b43583ede74882cee7dd0398fe1de6e71.jar" />
-    </item>
-    <item
-        jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
-        <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/classes-8ffab8658a62a9d7b0f099b6f83a26eb4048a823.jar" />
-    </item>
-    <item
-        jar="/home/hani/.gradle/caches/modules-2/files-2.1/dnsjava/dnsjava/2.1.7/a1ed0a251d22bf528cebfafb94c55e6f3f339cf/dnsjava-2.1.7.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="0a1ed0a251d22bf528cebfafb94c55e6f3f339cf">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/dnsjava-2.1.7-75d91fa70f17d51be551b4f88151c4d171d66900.jar" />
-    </item>
-    <item
         jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/pexkit-android-example/pexkit/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="63044c1474d0c7c03c68cd50f72dce53fe6f04dd">
+        sha1="d82e04b7e8b25971b7a7488e74ced0417ad057f1">
         <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/classes-89adad3c6123bbfca01589b14e5b27f837880aec.jar" />
     </item>
     <item
-        jar="/home/hani/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.7/cd78109020f9ec803ef4e652c17ee4615b03e20a/android-async-http-1.4.7.jar"
+        jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="cd78109020f9ec803ef4e652c17ee4615b03e20a">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/android-async-http-1.4.7-06090146e8c9cb0b1baa653d052d0aff98511679.jar" />
-    </item>
-    <item
-        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/Example/pexkit/unspecified/jars/libs/libjingle_peerconnection.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d286acfc94200acb83a1b3b1601a1a9c5c199f49">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/libjingle_peerconnection-0236a91e9d4a73f926cf619d3eb4e5dda645293d.jar" />
-    </item>
-    <item
-        jar="/home/hani/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/2.0.1/516c03b21d50a644d538de0f0369c620989cd8f0/jsr305-2.0.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="516c03b21d50a644d538de0f0369c620989cd8f0">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/jsr305-2.0.1-39b4bef6b75d682b4c8487852fd923cdfaf39d0b.jar" />
-    </item>
-    <item
-        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/Example/pexkit/unspecified/jars/libs/json-simple-1.1.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="5d6f9b6a9ddca2a28c0216cc44efb2e20d9c23b5">
-        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/json-simple-1.1.1-bd97aa806daca1314fecfd0000ff6514fde25779.jar" />
+        sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
+        <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/classes-d286f34d7b30b00133e10e5db6cafad29d7ccce6.jar" />
     </item>
     <item
         jar="/home/hani/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/11.0.2/35a3c69e19d72743cac83778aecbee68680f63eb/guava-11.0.2.jar"
@@ -128,11 +51,88 @@
         <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/guava-11.0.2-e6e6efe8244a4606554f39faf7c3b0870d701ded.jar" />
     </item>
     <item
-        jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.1/jars/classes.jar"
+        jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/pexkit-android-example/pexkit/unspecified/jars/libs/json-simple-1.1.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="a3ff3c506644c820eb2bdf06e8339f72be578551">
-        <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/classes-d286f34d7b30b00133e10e5db6cafad29d7ccce6.jar" />
+        sha1="5d6f9b6a9ddca2a28c0216cc44efb2e20d9c23b5">
+        <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/json-simple-1.1.1-e41590edd1957279046053a94c8f127c6b90f51d.jar" />
+    </item>
+    <item
+        jar="/home/hani/.gradle/caches/modules-2/files-2.1/dnsjava/dnsjava/2.1.7/a1ed0a251d22bf528cebfafb94c55e6f3f339cf/dnsjava-2.1.7.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0a1ed0a251d22bf528cebfafb94c55e6f3f339cf">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/dnsjava-2.1.7-75d91fa70f17d51be551b4f88151c4d171d66900.jar" />
+    </item>
+    <item
+        jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/classes-8ffab8658a62a9d7b0f099b6f83a26eb4048a823.jar" />
+    </item>
+    <item
+        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/Example/pexkit/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="63044c1474d0c7c03c68cd50f72dce53fe6f04dd">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/classes-0d5a2f0f453884d35a3b6de8e93cda4c687e3b3e.jar" />
+    </item>
+    <item
+        jar="/home/hani/.gradle/caches/modules-2/files-2.1/com.spotify/dns/3.0.2/73271f129d61641179a13c0f1f6af4ac7cec446b/dns-3.0.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73271f129d61641179a13c0f1f6af4ac7cec446b">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/dns-3.0.2-8dababb7d8ca7de9873156a79df8941366e484fc.jar" />
+    </item>
+    <item
+        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/classes-18464188d65df82d6441e72434c488cc9971f53f.jar" />
+    </item>
+    <item
+        jar="/home/hani/code/pexkit-android-example/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/libs/internal_impl-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
+        <dex dex="/home/hani/code/pexkit-android-example/app/build/intermediates/pre-dexed/debug/internal_impl-22.1.1-c6565f4243458f6e7f60ee34724daa60b5abec4f.jar" />
+    </item>
+    <item
+        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.1/jars/libs/internal_impl-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/internal_impl-22.1.1-bb3f040002e5c7dbbe88992fc2a26f851e1fa085.jar" />
+    </item>
+    <item
+        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/Example/pexkit/unspecified/jars/libs/json-simple-1.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5d6f9b6a9ddca2a28c0216cc44efb2e20d9c23b5">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/json-simple-1.1.1-bd97aa806daca1314fecfd0000ff6514fde25779.jar" />
+    </item>
+    <item
+        jar="/home/hani/code/Example/app/build/intermediates/exploded-aar/Example/pexkit/unspecified/jars/libs/libjingle_peerconnection.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d286acfc94200acb83a1b3b1601a1a9c5c199f49">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/libjingle_peerconnection-0236a91e9d4a73f926cf619d3eb4e5dda645293d.jar" />
+    </item>
+    <item
+        jar="/home/hani/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.1/support-annotations-22.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/support-annotations-22.1.1-7e88a8fa5c983a9cd75f939114d0750d0e998428.jar" />
+    </item>
+    <item
+        jar="/home/hani/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.7/cd78109020f9ec803ef4e652c17ee4615b03e20a/android-async-http-1.4.7.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="cd78109020f9ec803ef4e652c17ee4615b03e20a">
+        <dex dex="/home/hani/code/Example/app/build/intermediates/pre-dexed/debug/android-async-http-1.4.7-06090146e8c9cb0b1baa653d052d0aff98511679.jar" />
     </item>
 
 </items>
