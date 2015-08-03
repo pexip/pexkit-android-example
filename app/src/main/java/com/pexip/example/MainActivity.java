@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         try {
             videoView = (GLSurfaceView) findViewById(R.id.videoView);
-            this.conference = new Conference("Android Example App", new URI("meet.hani@pexipdemo.com"), "");
+            this.conference = new Conference("Android Example App", new URI("conference@domain.com"), "");
             this.pexContext = PexKit.create(getBaseContext(), (GLSurfaceView) findViewById(R.id.videoView));
             Log.i("MainActivity", "done initializing pexkit");
         } catch (Exception e) {}
