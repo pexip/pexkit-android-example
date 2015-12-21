@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.pexip.pexkit.Conference;
+import com.pexip.pexkit.ConferenceDelegate;
 import com.pexip.pexkit.IStatusResponse;
+import com.pexip.pexkit.Participant;
 import com.pexip.pexkit.PexKit;
 import com.pexip.pexkit.ServiceResponse;
 
@@ -27,7 +29,13 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         try {
             videoView = (GLSurfaceView) findViewById(R.id.videoView);
-            this.conference = new Conference("Android Example App", new URI("conference@domain.com"), "");
+            this.conference = new Conference("Android Example App", new URI("meet.geir@pexipdemo.com"), "4567");
+            this.conference.setDelegate(new ConferenceDelegate() {
+                @Override
+                public void stageUpdate(final Participant[] stage) {
+                    Log.i("Stageupdate", "VAD is " + stage[0].vad);
+                }
+            });
             this.pexContext = PexKit.create(getBaseContext(), (GLSurfaceView) findViewById(R.id.videoView));
             Log.i("MainActivity", "done initializing pexkit");
         } catch (Exception e) {}
