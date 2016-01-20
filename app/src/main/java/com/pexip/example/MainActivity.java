@@ -1,6 +1,8 @@
 package com.pexip.example;
 
+import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.os.PowerManager;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 
@@ -25,9 +28,15 @@ public class MainActivity extends ActionBarActivity {
     private PexKit pexContext = null;
     private GLSurfaceView videoView;
     private Chronometer chronometer;
+    private PowerManager.WakeLock wl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        PowerManager pm = (PowerManager)getApplicationContext().getSystemService(
+                Context.POWER_SERVICE);
+        wl = pm.newWakeLock(
+                PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE,
+                "MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
@@ -46,6 +55,14 @@ public class MainActivity extends ActionBarActivity {
             this.conference.setDelegate(new ConferenceDelegate() {
                 @Override
                 public void stageUpdate(final Participant[] stage) {
+                    Participant[] participants = conference.getParticipants();
+                    for (Participant p: participants) {
+                        if (p.uuid == conference.getUUID()) {
+                            if (p.isMuted) {
+                                Log.i("MainActivity", "We were muted.");
+                            }
+                        }
+                    }
                     if (stage.length > 0) {
                         Log.i("Stageupdate", "VAD is " + stage[0].vad);
                     }
@@ -71,6 +88,7 @@ public class MainActivity extends ActionBarActivity {
     public void onLogin(final View v) {
         ((Button) v).setEnabled(false);
         if (this.conference.isLoggedIn()) {
+            wl.release();
             chronometer.stop();
             Log.i("MainActivity", "about to release");
             conference.disconnectMedia(new IStatusResponse() {
@@ -92,7 +110,8 @@ public class MainActivity extends ActionBarActivity {
                                     }
                                 });
                                 pexContext = PexKit.create(getBaseContext(), (GLSurfaceView) findViewById(R.id.videoView));
-                            } catch (Exception e) {}
+                            } catch (Exception e) {
+                            }
 
                             ((Button) v).setEnabled(true);
                         }
@@ -102,6 +121,7 @@ public class MainActivity extends ActionBarActivity {
 
         } else {
             Log.i("MainActivity", "about to connect");
+            wl.acquire();
             this.conference.connect(new IStatusResponse() {
                 @Override
                 public void response(ServiceResponse status) {
@@ -112,6 +132,12 @@ public class MainActivity extends ActionBarActivity {
                             conference.escalateMedia(pexContext, new IStatusResponse() {
                                 @Override
                                 public void response(ServiceResponse status) {
+                                    videoView = (GLSurfaceView) findViewById(R.id.videoView);
+                                    int width = videoView.getWidth();
+                                    int viewHeight = (width  * 9 ) / 16;
+                                    Log.i("Example", "Setting height to " + viewHeight + " " + width);
+                                    ViewGroup.LayoutParams lp = videoView.getLayoutParams();
+                                    lp.height = viewHeight;
                                     Log.i("MainActivity", "escalate call status is " + status);
                                     conference.listenForEvents();
                                     chronometer.setBase(SystemClock.elapsedRealtime());
