@@ -29,6 +29,9 @@ public class MainActivity extends ActionBarActivity {
     private GLSurfaceView videoView;
     private Chronometer chronometer;
     private PowerManager.WakeLock wl;
+    private int originalWidth;
+    private int originalHeight;
+    private int originalOrientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
         }
         try {
             videoView = (GLSurfaceView) findViewById(R.id.videoView);
-            this.conference = new Conference("Android Example App", new URI("meet.geir@pexipdemo.com"), "4567");
+            this.conference = new Conference("Android Example App", new URI("db@pexipdemo.com"), "9729");
             this.conference.setDelegate(new ConferenceDelegate() {
                 @Override
                 public void stageUpdate(final Participant[] stage) {
@@ -69,9 +72,38 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
             this.pexContext = PexKit.create(getBaseContext(), (GLSurfaceView) findViewById(R.id.videoView));
+            pexContext.setCallbacks(new PexKit.Callbacks() {
+                @Override
+                public void onFirstFrameRendered() {
+
+                }
+
+                @Override
+                public void onFrameResolutionChanged(int width, int height, int orientation) {
+                    setAspectRatio(width, height, orientation);
+                }
+            });
             this.chronometer = (Chronometer) findViewById(R.id.chronometer);
             Log.i("MainActivity", "done initializing pexkit");
         } catch (Exception e) {}
+    }
+
+    public void setAspectRatio(int width, int height, int orientation) {
+        originalWidth = width;
+        originalHeight = height;
+        originalOrientation = orientation;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                videoView = (GLSurfaceView) findViewById(R.id.videoView);
+                int width_ = videoView.getWidth();
+                int viewHeight = (width_ * originalHeight ) / originalWidth;
+                Log.i("Example", "Setting height to " + viewHeight + " " + width_);
+                ViewGroup.LayoutParams lp = videoView.getLayoutParams();
+                lp.height = viewHeight;
+            }
+        });
     }
 
     @Override
@@ -132,12 +164,6 @@ public class MainActivity extends ActionBarActivity {
                             conference.escalateMedia(pexContext, new IStatusResponse() {
                                 @Override
                                 public void response(ServiceResponse status) {
-                                    videoView = (GLSurfaceView) findViewById(R.id.videoView);
-                                    int width = videoView.getWidth();
-                                    int viewHeight = (width  * 9 ) / 16;
-                                    Log.i("Example", "Setting height to " + viewHeight + " " + width);
-                                    ViewGroup.LayoutParams lp = videoView.getLayoutParams();
-                                    lp.height = viewHeight;
                                     Log.i("MainActivity", "escalate call status is " + status);
                                     conference.listenForEvents();
                                     chronometer.setBase(SystemClock.elapsedRealtime());
