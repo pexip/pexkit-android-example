@@ -22,6 +22,9 @@ import com.pexip.pexkit.PexKit;
 import com.pexip.pexkit.ServiceResponse;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
     private Conference conference = null;
@@ -32,6 +35,9 @@ public class MainActivity extends ActionBarActivity {
     private int originalWidth;
     private int originalHeight;
     private int originalOrientation;
+    private Integer currentSelfviewX = 75;
+    private Integer currentSelfviewY = 75;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,11 +196,46 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    public void onSelfviewClick(final View v) {
+        Log.i("MainActivity", "about to switch selfview position");
+        ArrayList<List<Integer>> positions = new ArrayList<>();
+        positions.add(Arrays.asList(0, 0));
+        positions.add(Arrays.asList(75, 0));
+        positions.add(Arrays.asList(0, 75));
+        positions.add(Arrays.asList(75, 75));
+        boolean found = false;
+        boolean changed = false;
+        for (List<Integer> position: positions) {
+            if (position.get(0).equals(currentSelfviewX) && position.get(1).equals(currentSelfviewY)) {
+                Log.i("MainActivity", String.format("found current selfview - %s %s",
+                        currentSelfviewX, currentSelfviewY));
+                found = true;
+                continue;
+            }
+            if (found) {
+                currentSelfviewX = position.get(0);
+                currentSelfviewY = position.get(1);
+                pexContext.moveSelfView(currentSelfviewX, currentSelfviewY, 25, 25);
+                changed = true;
+                break;
+            }
+        }
+        if (found && !changed) {
+            List<Integer> position = positions.get(0);
+            currentSelfviewX = position.get(0);
+            currentSelfviewY = position.get(0);
+            pexContext.moveSelfView(currentSelfviewX, currentSelfviewY, 25, 25);
+
+        }
+        Log.i("MainActivity", String.format(
+                "selfview set to %s, %s", currentSelfviewX, currentSelfviewY));
+    }
+
     public void onCameraMute(final View v) {
         Log.i("MainActivity", "about to mute camera");
         if (conference.getVideoMute()) {
             conference.setVideoMute(false);
-            pexContext.moveSelfView(72, 72, 25, 25);
+            pexContext.moveSelfView(currentSelfviewX, currentSelfviewY, 25, 25);
         } else {
             conference.setVideoMute(true);
             pexContext.moveSelfView(0, 0, 0, 0);
