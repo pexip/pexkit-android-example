@@ -1,6 +1,8 @@
 package com.pexip.example;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLSurfaceView;
 import android.os.PowerManager;
 import android.os.SystemClock;
@@ -13,9 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 
 import com.pexip.pexkit.Conference;
 import com.pexip.pexkit.ConferenceDelegate;
+import com.pexip.pexkit.IStatusDataResponse;
 import com.pexip.pexkit.IStatusResponse;
 import com.pexip.pexkit.Participant;
 import com.pexip.pexkit.PexKit;
@@ -30,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
     private Conference conference = null;
     private PexKit pexContext = null;
     private GLSurfaceView videoView;
+    private ImageView imageView;
     private Chronometer chronometer;
     private PowerManager.WakeLock wl;
     private int originalWidth;
@@ -60,8 +65,26 @@ public class MainActivity extends ActionBarActivity {
         }
         try {
             videoView = (GLSurfaceView) findViewById(R.id.videoView);
+            imageView = (ImageView) findViewById(R.id.imageView);
             this.conference = new Conference("Android Example App", new URI("db@pexipdemo.com"), "9729");
             this.conference.setDelegate(new ConferenceDelegate() {
+                @Override
+                public void presentationStart(String name) {
+                    imageView.setVisibility(imageView.VISIBLE);
+                    Log.d("pexkit.events", String.format("presentation started by %s", name));
+                }
+
+                @Override
+                public void presentationFrame(String id) {
+                    Log.d("pexkit.events", String.format("new presentation frame (id=%s)", id));
+                    getPresentationFrame();
+                }
+
+                @Override
+                public void presentationStop() {
+                    imageView.setVisibility(imageView.INVISIBLE);
+                }
+
                 @Override
                 public void stageUpdate(final Participant[] stage) {
                     Participant[] participants = conference.getParticipants();
@@ -92,6 +115,22 @@ public class MainActivity extends ActionBarActivity {
             this.chronometer = (Chronometer) findViewById(R.id.chronometer);
             Log.i("MainActivity", "done initializing pexkit");
         } catch (Exception e) {}
+    }
+
+    private void getPresentationFrame() {
+        conference.fetchPresentation(false, new IStatusDataResponse() {
+            @Override
+            public void response(ServiceResponse status, final byte[] data) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageView image = (ImageView) findViewById(R.id.imageView);
+                        Bitmap bMap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        image.setImageBitmap(bMap);
+                    }
+                });
+            }
+        });
     }
 
     public void setAspectRatio(int width, int height, int orientation) {
