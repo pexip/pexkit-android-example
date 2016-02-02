@@ -1,5 +1,7 @@
 package com.pexip.example;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +10,7 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,16 +33,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+    private String TAG = getClass().getName();
     private Conference conference = null;
     private PexKit pexContext = null;
     private GLSurfaceView videoView;
     private ImageView imageView;
     private Chronometer chronometer;
     private PowerManager.WakeLock wl;
-    private int originalWidth;
-    private int originalHeight;
-    private int originalOrientation;
+    private Integer originalWidth;
+    private Integer originalHeight;
+    private Integer originalOrientation;
     private Integer currentSelfviewX = 75;
     private Integer currentSelfviewY = 75;
 
