@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
         try {
             videoView = (GLSurfaceView) findViewById(R.id.videoView);
             imageView = (ImageView) findViewById(R.id.imageView);
-            this.conference = new Conference("Android Example App", new URI("db@pexipdemo.com"), "9729");
+            this.conference = new Conference("Android Example App", new URI("meet.david@rd.pexip.com"), "");
             this.conference.setDelegate(new ConferenceDelegate() {
                 @Override
                 public void presentationStart(String name) {
