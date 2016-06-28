@@ -3,11 +3,16 @@ package com.pexip.example;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +21,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.pexip.pexkit.Conference;
 import com.pexip.pexkit.ConferenceDelegate;
@@ -28,25 +36,31 @@ import com.pexip.pexkit.Participant;
 import com.pexip.pexkit.PexKit;
 import com.pexip.pexkit.ServiceResponse;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends Activity {
+    private static final int SELECT_PHOTO = 100;
     private String TAG = getClass().getName();
     private Conference conference = null;
     private PexKit pexContext = null;
     private GLSurfaceView videoView;
     private ImageView imageView;
+    private AspectFrameLayout presentationLayout;
     private Chronometer chronometer;
     private PowerManager.WakeLock wl;
     private Integer originalWidth;
     private Integer originalHeight;
     private Integer originalOrientation;
-    private Integer currentSelfviewX = 75;
-    private Integer currentSelfviewY = 75;
-
+    private Integer currentSelfviewX = 72;
+    private Integer currentSelfviewY = 72;
+    private Boolean postingPresentation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +84,12 @@ public class MainActivity extends Activity {
         try {
             videoView = (GLSurfaceView) findViewById(R.id.videoView);
             imageView = (ImageView) findViewById(R.id.imageView);
+            presentationLayout = (AspectFrameLayout) findViewById(R.id.presentationLayout);
             this.conference = new Conference("Android Example App", new URI("meet.david@rd.pexip.com"), "");
             this.conference.setDelegate(new ConferenceDelegate() {
                 @Override
                 public void presentationStart(String name) {
-                    imageView.setVisibility(imageView.VISIBLE);
+                    presentationLayout.setVisibility(presentationLayout.VISIBLE);
                     Log.d("pexkit.events", String.format("presentation started by %s", name));
                 }
 
@@ -86,12 +101,13 @@ public class MainActivity extends Activity {
 
                 @Override
                 public void presentationStop() {
-                    imageView.setVisibility(imageView.INVISIBLE);
+                    presentationLayout.setVisibility(presentationLayout.GONE);
                 }
 
                 @Override
                 public void stageUpdate(final Participant[] stage) {
                     Participant[] participants = conference.getParticipants();
+                    updateParticipantList(participants);
                     for (Participant p: participants) {
                         if (p.uuid == conference.getUUID()) {
                             if (p.isMuted) {
@@ -121,6 +137,27 @@ public class MainActivity extends Activity {
         } catch (Exception e) {}
     }
 
+    private void updateParticipantList(final Participant[] participants) {
+        ListView participantList = (ListView) findViewById(R.id.participantList);
+
+        ArrayList<Participant> participants1 = new ArrayList<>();
+        for (Participant p: participants) { participants1.add(p); }
+        ArrayAdapter adapter = new ArrayAdapter<Participant>(this, android.R.layout.simple_list_item_2, android.R.id.text1, participants1) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+                TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+                text1.setText(getItem(position).displayName);
+                text2.setText(getItem(position).role.equals("chair") ? "Host" : "Guest");
+                return view;
+            }
+        };
+
+        participantList.setAdapter(adapter);
+    }
+
     private void getPresentationFrame() {
         conference.fetchPresentation(false, new IStatusDataResponse() {
             @Override
@@ -145,12 +182,14 @@ public class MainActivity extends Activity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                videoView = (GLSurfaceView) findViewById(R.id.videoView);
-                int width_ = videoView.getWidth();
-                int viewHeight = (width_ * originalHeight ) / originalWidth;
-                Log.i("Example", "Setting height to " + viewHeight + " " + width_);
-                ViewGroup.LayoutParams lp = videoView.getLayoutParams();
-                lp.height = viewHeight;
+                AspectFrameLayout layout = (AspectFrameLayout) findViewById(R.id.videoFrameLayout);
+                layout.setAspectRatio(((double)originalWidth) / (double) originalHeight);
+//                videoView = (GLSurfaceView) findViewById(R.id.videoView);
+//                int width_ = videoView.getWidth();
+//                int viewHeight = (width_ * originalHeight ) / originalWidth;
+//                Log.i("Example", "Setting height to " + viewHeight + " " + width_);
+//                ViewGroup.LayoutParams lp = videoView.getLayoutParams();
+//                lp.height = viewHeight;
             }
         });
     }
@@ -167,7 +206,6 @@ public class MainActivity extends Activity {
         videoView.onResume();
     }
     public void onLogin(final View v) {
-        ((Button) v).setEnabled(false);
         if (this.conference.isLoggedIn()) {
             wl.release();
             chronometer.stop();
@@ -194,7 +232,6 @@ public class MainActivity extends Activity {
                             } catch (Exception e) {
                             }
 
-                            ((Button) v).setEnabled(true);
                         }
                     });
                 }
@@ -219,7 +256,6 @@ public class MainActivity extends Activity {
                                     chronometer.start();
                                 }
                             });
-                            ((Button) v).setEnabled(true);
                         }
                     });
                 }
@@ -227,14 +263,64 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void onPostPresentation(final View v) {
+        if (!postingPresentation) {
+            postingPresentation = true;
+            Log.i("MainActivity", "about to post presentation");
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/jpeg");
+            startActivityForResult(Intent.createChooser(photoPickerIntent,"Select Picture"), SELECT_PHOTO);
+        } else {
+            postingPresentation = false;
+            conference.stopPresenting(new IStatusResponse() {});
+            presentationLayout.setVisibility(presentationLayout.GONE);
+        }
+    }
+
+    private String getPath(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(projection[0]);
+        cursor.moveToFirst();
+        String index = cursor.getString(column_index);
+        cursor.close();
+        return index;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        Log.i("MainActivity", "Got activity result");
+        switch(requestCode) {
+            case SELECT_PHOTO:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    try {
+                        File f = new File(getPath(selectedImage));
+                        Log.i("MainActivity", "Posting presentation");
+                        conference.postPresentation(f, new IStatusResponse() {
+                            @Override
+                            public void response(ServiceResponse status) {
+                                Log.i("MainActivity", "Posted presentation " + status.toString());
+                                FloatingActionButton fb = (FloatingActionButton) findViewById(R.id.addPresentation);
+                                fb.setEnabled(true);
+                                presentationLayout.setVisibility(presentationLayout.VISIBLE);
+                            }
+                        });
+                    } catch (FileNotFoundException ex) {
+                        Log.i("MainActivity", "File not found " + selectedImage.getPath());
+                    } catch (Throwable ex) {
+                        Log.i("MainActivity", "Error " + ex.toString());
+                        throw ex;
+                    }
+                }
+        }
+    }
     public void onCameraChange(final View v) {
-        ((Button) v).setEnabled(false);
         Log.i("MainActivity", "about to switch camera");
         conference.toggleCameraSwitch(new IStatusResponse() {
             @Override
             public void response(ServiceResponse status) {
                 Log.i("MainActivity", "Switched Camera");
-                ((Button) v).setEnabled(true);
             }
         });
     }
@@ -242,10 +328,10 @@ public class MainActivity extends Activity {
     public void onSelfviewClick(final View v) {
         Log.i("MainActivity", "about to switch selfview position");
         ArrayList<List<Integer>> positions = new ArrayList<>();
-        positions.add(Arrays.asList(0, 0));
-        positions.add(Arrays.asList(75, 0));
-        positions.add(Arrays.asList(0, 75));
-        positions.add(Arrays.asList(75, 75));
+        positions.add(Arrays.asList(3, 3));
+        positions.add(Arrays.asList(72, 3));
+        positions.add(Arrays.asList(3, 72));
+        positions.add(Arrays.asList(72, 72));
         boolean found = false;
         boolean changed = false;
         for (List<Integer> position: positions) {
